@@ -102,13 +102,22 @@ def featured_image(browser):
 
 # ### Mars Facts
 
-df = pd.read_html('https://galaxyfacts-mars.com')[0]
-df.head()
+def mars_facts():
+    
+    # Add try/except for error handling
+    try:
+        # Creating DF by telling function to look for first html table in site it encounters by indexing it to zero
+        df=pd.read_html('http://space-facts.com/mars/')[0]
 
-df.columns=['description', 'Mars', 'Earth']
-df.set_index('description', inplace=True)
-df
+    # BaseException, catches multiple types of errors
+    except BaseException:
+        return None
+    
+    # Assigning columns, and set 'description' as index 
+    df.columns=['description', 'value']
+    df.set_index('description', inplace=True)
 
-df.to_html()
+    #Convert back to HTML format, add bootstrap
+    return df.to_html()
 
 browser.quit()
