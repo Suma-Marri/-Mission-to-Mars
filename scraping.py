@@ -123,8 +123,7 @@ def hemisphere(browser):
     image = browser.find_by_css("a.product-item h3")
     
     for i in range(len(image)):
-        
-        
+                
         hemispheres = {}
         browser.find_by_css("a.product-item h3")[i].click()                                     
         element = browser.find_by_text("Sample").first
