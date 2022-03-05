@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
 
 # Import Splinter, BeautifulSoup, and Pandas
 from splinter import Browser
@@ -6,7 +11,7 @@ import pandas as pd
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-# In[ ]:
+# In[2]:
 
 
 # Set the executable path and initialize Splinter
@@ -16,7 +21,7 @@ browser = Browser('chrome', **executable_path, headless=False)
 
 # ### Visit the NASA Mars News Site
 
-# In[ ]:
+# In[3]:
 
 
 # Visit the mars nasa news site
@@ -27,7 +32,7 @@ browser.visit(url)
 browser.is_element_present_by_css('div.list_text', wait_time=1)
 
 
-# In[ ]:
+# In[4]:
 
 
 # Convert the browser html to a soup object and then quit the browser
@@ -37,13 +42,13 @@ news_soup = soup(html, 'html.parser')
 slide_elem = news_soup.select_one('div.list_text')
 
 
-# In[ ]:
+# In[5]:
 
 
 slide_elem.find('div', class_='content_title')
 
 
-# In[ ]:
+# In[6]:
 
 
 # Use the parent element to find the first a tag and save it as `news_title`
@@ -51,7 +56,7 @@ news_title = slide_elem.find('div', class_='content_title').get_text()
 news_title
 
 
-# In[ ]:
+# In[7]:
 
 
 # Use the parent element to find the paragraph text
@@ -61,7 +66,7 @@ news_p
 
 # ### JPL Space Images Featured Image
 
-# In[ ]:
+# In[8]:
 
 
 # Visit URL
@@ -69,7 +74,7 @@ url = 'https://spaceimages-mars.com'
 browser.visit(url)
 
 
-# In[ ]:
+# In[9]:
 
 
 # Find and click the full image button
@@ -77,7 +82,7 @@ full_image_elem = browser.find_by_tag('button')[1]
 full_image_elem.click()
 
 
-# In[ ]:
+# In[10]:
 
 
 # Parse the resulting html with soup
@@ -86,7 +91,7 @@ img_soup = soup(html, 'html.parser')
 img_soup
 
 
-# In[ ]:
+# In[11]:
 
 
 # find the relative image url
@@ -94,7 +99,7 @@ img_url_rel = img_soup.find('img', class_='fancybox-image').get('src')
 img_url_rel
 
 
-# In[ ]:
+# In[12]:
 
 
 # Use the base url to create an absolute url
@@ -104,14 +109,14 @@ img_url
 
 # ### Mars Facts
 
-# In[ ]:
+# In[13]:
 
 
 df = pd.read_html('https://galaxyfacts-mars.com')[0]
 df.head()
 
 
-# In[ ]:
+# In[14]:
 
 
 df.columns=['Description', 'Mars', 'Earth']
@@ -119,7 +124,7 @@ df.set_index('Description', inplace=True)
 df
 
 
-# In[ ]:
+# In[15]:
 
 
 df.to_html()
@@ -129,7 +134,7 @@ df.to_html()
 
 # ### Hemispheres
 
-# In[ ]:
+# In[16]:
 
 
 # 1. Use browser to visit the URL 
@@ -138,7 +143,7 @@ url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=tar
 browser.visit(url)
 
 
-# In[ ]:
+# In[17]:
 
 
 # 2. Create a list to hold the images and titles.
@@ -158,14 +163,14 @@ for i in range(4):
     browser.back()
 
 
-# In[ ]:
+# In[18]:
 
 
 # 4. Print the list that holds the dictionary of each image url and title.
 hemisphere_image_urls
 
 
-# In[ ]:
+# In[19]:
 
 
 # 5. Quit the browser
